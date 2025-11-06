@@ -1,5 +1,5 @@
 from aiogram import types, Dispatcher, F
-
+from aiogram.enums import ParseMode
 
 from markups.market import brand_list_markup, get_market_markup
 
@@ -63,6 +63,7 @@ async def send_first_brand_good(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML,
             reply_markup=get_market_markup(
                 goods_data["is_to_right"],
                 goods_data["is_to_left"],
@@ -101,6 +102,7 @@ async def catalog_left(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML
         )
         await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
@@ -144,6 +146,7 @@ async def catalog_right(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML
         )
         await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
@@ -154,7 +157,6 @@ async def catalog_right(c: types.CallbackQuery):
                 goods_data["good"]["ID"],
                 brand,
                 count_in_cart if count_in_cart else 0
-
             ),
         )
     else:
@@ -190,6 +192,7 @@ async def catalog_left(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML
         )
         await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
@@ -212,7 +215,7 @@ async def catalog_left(c: types.CallbackQuery):
 async def add_to_cart(c: types.CallbackQuery):
     a, good, brand, page = c.data.split('_')
 
-    await b.add_good_to_cart(c.from_user.id, good, int(brand))
+    await db.add_good_to_cart(c.from_user.id, good, int(brand))
 
     goods_data = await get_good_card_in_catalog(int(brand), int(page) + 1)
 
@@ -233,6 +236,7 @@ async def add_to_cart(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML
         )
         await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
@@ -279,6 +283,7 @@ async def delete_from_cart(c: types.CallbackQuery):
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+            parse_mode=ParseMode.HTML
         )
         await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
