@@ -8,6 +8,11 @@ from config import sheet_categories
 
 
 async def make_cart_info(user_id):
+    def get_good_price(good_price, number):
+        try:
+            return int(good_price) * number
+        except ValueError:
+            return good_price
     user_cart = await db.get_user_cart(user_id)
 
     message_text = """
@@ -16,7 +21,7 @@ async def make_cart_info(user_id):
 """
 
     if user_cart:
-        i = 0
+        i = 1
         total = 0
         cart_for_markup = []
         for c in user_cart:
@@ -26,10 +31,13 @@ async def make_cart_info(user_id):
 {i}. {good_info['Название']}
 Количество: {c['number']}
 Цента за шт: {good_info['Цена']}
-Сумма: {c['number'] * int(good_info['Цена'])}
+Сумма: {get_good_price(good_info['Цена'], c['number'])}
 
 """
-            total += c['number'] * int(good_info['Цена'])
+            try:
+                total += c['number'] * int(good_info['Цена'])
+            except ValueError:
+                pass
             i += 1
             cart_for_markup.append(
                 {
