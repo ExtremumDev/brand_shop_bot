@@ -5,7 +5,6 @@ import logging
 
 from utils.logger import get_db_logger
 
-from create_bot import get_logger
 
 
 class DataBase:
