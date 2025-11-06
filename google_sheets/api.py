@@ -30,7 +30,7 @@ class AsyncSheetCacheManager:
     async def load_sheet(self, category):
         sheet = self.spreadsheet.worksheet(category)
         data = sheet.get_all_records()
-        self.cache[category] = {row["id"]: row for row in data}
+        self.cache[category] = {row["ID"]: row for row in data}
         self.last_update_time = time.time()
 
         cache_file = os.path.join(self.cache_dir, f"cache_{category}.json")
@@ -42,7 +42,7 @@ class AsyncSheetCacheManager:
         if os.path.exists(cache_file):
             with open(cache_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                self.cache[category] = {row["id"]: row for row in data}
+                self.cache[category] = {row["ID"]: row for row in data}
             return True
         return False
 
