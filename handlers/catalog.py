@@ -54,9 +54,9 @@ async def send_first_brand_good(c: types.CallbackQuery):
             brand
         )
 
-        await c.message.answer_photo(
-            photo=types.URLInputFile(goods_data["good"]["Фото"]),
-            caption=get_good_card_text(
+        await c.message.answer(
+            #photo=types.URLInputFile(goods_data["good"]["Фото"]),
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
@@ -90,11 +90,11 @@ async def catalog_left(c: types.CallbackQuery):
     goods_data = get_good_card_in_catalog(brand, page - 1)
 
     if goods_data:
-        await c.message.edit_media(
-            media=types.URLInputFile(goods_data["good"]["Фото"]),
-        )
-        await c.message.edit_caption(
-            caption=get_good_card_text(
+        # await c.message.edit_media(
+        #     media=types.URLInputFile(goods_data["good"]["Фото"]),
+        # )
+        await c.message.edit_text(
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
@@ -121,11 +121,11 @@ async def catalog_left(c: types.CallbackQuery):
 
 
 async def catalog_right(c: types.CallbackQuery):
-    brand = int(c.data.split('_')[1])
+    a, page, brand = c.data.split('_')
+    page = int(page)
+    brand = int(brand)
 
-    goods_data = get_good_card_in_catalog(
-        brand
-    )
+    goods_data = get_good_card_in_catalog(brand, page + 1)
 
     if goods_data:
 
@@ -135,15 +135,17 @@ async def catalog_right(c: types.CallbackQuery):
             brand
         )
 
-        await c.message.answer_photo(
-            photo=types.URLInputFile(goods_data["good"]["Фото"]),
-            caption=get_good_card_text(
+        await c.message.edit_text(
+            #photo=types.URLInputFile(goods_data["good"]["Фото"]),
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
                 volume=goods_data["good"]["Показания к применению"],
                 price=goods_data["good"]["Цена"]
             ),
+        )
+        await c.message.edit_reply_markup(
             reply_markup=get_market_markup(
                 goods_data["is_to_right"],
                 goods_data["is_to_left"],
@@ -168,7 +170,7 @@ async def catalog_left(c: types.CallbackQuery):
     page = int(page)
     brand = int(brand)
 
-    goods_data = get_good_card_in_catalog(brand, page + 1)
+    goods_data = get_good_card_in_catalog(brand, page - 1)
 
     if goods_data:
         count_in_cart = await db.count_goods_in_cart(
@@ -177,11 +179,11 @@ async def catalog_left(c: types.CallbackQuery):
             brand
         )
 
-        await c.message.edit_media(
-            media=types.URLInputFile(goods_data["good"]["Фото"]),
-        )
-        await c.message.edit_caption(
-            caption=get_good_card_text(
+        # await c.message.edit_media(
+        #     media=types.URLInputFile(goods_data["good"]["Фото"]),
+        # )
+        await c.message.edit_text(
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
@@ -220,11 +222,11 @@ async def add_to_cart(c: types.CallbackQuery):
             goods_data["good"]["ID"],
             brand
         )
-        await c.message.edit_media(
-            media=types.URLInputFile(goods_data["good"]["Фото"]),
-        )
-        await c.message.edit_caption(
-            caption=get_good_card_text(
+        # await c.message.edit_media(
+        #     media=types.URLInputFile(goods_data["good"]["Фото"]),
+        # )
+        await c.message.edit_text(
+            text==get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
@@ -266,11 +268,11 @@ async def delete_from_cart(c: types.CallbackQuery):
             goods_data["good"]["ID"],
             brand
         )
-        await c.message.edit_media(
-            media=types.URLInputFile(goods_data["good"]["Фото"]),
-        )
-        await c.message.edit_caption(
-            caption=get_good_card_text(
+        # await c.message.edit_media(
+        #     media=types.URLInputFile(goods_data["good"]["Фото"]),
+        # )
+        await c.message.edit_text(
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
