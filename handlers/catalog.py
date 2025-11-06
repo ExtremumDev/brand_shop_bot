@@ -158,7 +158,7 @@ async def catalog_right(c: types.CallbackQuery):
             brand
         )
         await c.message.edit_media(
-            media=types.URLInputFile(get_google_drive_url(goods_data["good"]["Фото"])),
+            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
         )
         await c.message.edit_caption(
             caption=get_good_card_text(
