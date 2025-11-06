@@ -113,7 +113,7 @@ async def catalog_left(c: types.CallbackQuery):
 
     if goods_data:
         await c.message.edit_media(
-            media=types.URLInputFile(get_google_drive_url(goods_data["good"]["Фото"])),
+            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
         )
         await c.message.edit_caption(
             caption=get_good_card_text(
@@ -204,7 +204,7 @@ async def catalog_left(c: types.CallbackQuery):
         )
 
         await c.message.edit_media(
-            media=types.URLInputFile(get_google_drive_url(goods_data["good"]["Фото"])),
+            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
         )
         await c.message.edit_caption(
             caption=get_good_card_text(
@@ -248,7 +248,7 @@ async def add_to_cart(c: types.CallbackQuery):
             brand
         )
         await c.message.edit_media(
-            media=types.URLInputFile(get_google_drive_url(goods_data["good"]["Фото"])),
+            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
         )
         await c.message.edit_caption(
             caption=get_good_card_text(
@@ -295,7 +295,7 @@ async def delete_from_cart(c: types.CallbackQuery):
             brand
         )
         await c.message.edit_media(
-            media=types.URLInputFile(get_google_drive_url(goods_data["good"]["Фото"])),
+            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
         )
         await c.message.edit_caption(
             caption=get_good_card_text(
