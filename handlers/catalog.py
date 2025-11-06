@@ -229,7 +229,7 @@ async def add_to_cart(c: types.CallbackQuery):
         #     media=types.URLInputFile(goods_data["good"]["Фото"]),
         # )
         await c.message.edit_text(
-            text==get_good_card_text(
+            text=get_good_card_text(
                 name=goods_data["good"]["Название"],
                 descr=goods_data["good"]["Описание"],
                 usage=goods_data["good"]["Показания к применению"],
