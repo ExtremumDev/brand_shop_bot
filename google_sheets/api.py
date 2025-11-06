@@ -5,7 +5,7 @@ import os
 import time
 import asyncio
 
-from config import settings, categories
+from config import settings, sheet_categories
 
 from utils.logger import get_bot_logger
 
@@ -78,6 +78,6 @@ class AsyncSheetCacheManager:
 
 cache_manager = AsyncSheetCacheManager(
     settings.SPREADSHEET_NAME,
-    categories,
+    sheet_categories,
     "service_account.json"
 )

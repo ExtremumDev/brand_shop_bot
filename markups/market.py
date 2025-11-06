@@ -1,15 +1,15 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from config import categories
+from config import sheet_categories
 
 
 brand_list_markup = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text=categories[i], callback_data=f"brand_{i}")
+            InlineKeyboardButton(text=sheet_categories[i], callback_data=f"brand_{i}")
             
         ]
-        for i in range(len(categories))
+        for i in range(len(sheet_categories))
     ]
 )
 
