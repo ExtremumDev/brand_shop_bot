@@ -68,21 +68,21 @@ CREATE TABLE IF NOT EXISTS `cart` (
         await self.execute(
             """INSERT INTO `cart` (`user_id`, `good_id`, `brand`)
 VALUES (%s, %s, %s)""",
-            (user_id, good_id, brand)
+            user_id, good_id, brand
         )
 
     async def delete_from_cart(self, user_id: int, good_id: str, brand: int):
         await self.execute(
             """DELETE FROM `cart` WHERE `user_id` = %s AND `good_id` = %s
 AND brand = %s LIMIT 1""",
-            (user_id, good_id, brand)
+            user_id, good_id, brand
         )
 
     
     async def delete_good_from_cart(self, user_id: int, good_id: str):
         await self.execute(
             """DELETE FROM `cart` WHERE `user_id` = %s AND `good_id` = %s""",
-            (user_id, good_id)
+            user_id, good_id
         )
 
     async def get_user_cart(self, user_id):
@@ -90,16 +90,15 @@ AND brand = %s LIMIT 1""",
         return await self.select_all(
             '''SELECT `good_id`, `user_id`, count(`good_id`) as number, `brand` FROM `cart`
 WHERE `user_id` = %s GROUP BY `good_id`''',
-            (user_id,)
+            user_id,
         )
 
     async def count_goods_in_cart(self, user_id, good_id, brand):
         cart_info = await self.select_one(
             """
-SELECT count(`id`) as `number` FROM `cart` WHERE `user_id` = %s
-AND `good_id` = %s           
+SELECT count(`id`) as `number` FROM `cart` WHERE `user_id` = %s AND `good_id` = %s           
 """,
-            (user_id, good_id)
+            user_id, good_id
         )
 
         if cart_info:
@@ -112,5 +111,5 @@ AND `good_id` = %s
     async def clear_user_cart(self, user_id):
         await self.execute(
             "DELETE FROM `cart` WHERE `user_id` = %s",
-            (user_id,)
+            user_id,
         )

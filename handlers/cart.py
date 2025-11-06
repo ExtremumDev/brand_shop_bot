@@ -50,7 +50,7 @@ async def make_cart_info(user_id):
         }
 
 
-async def send_cart(c: types.CallbackGame):
+async def send_cart(c: types.CallbackQuery):
     
     cart_info = await make_cart_info(c.from_user.id)
 
@@ -58,6 +58,7 @@ async def send_cart(c: types.CallbackGame):
         cart_info['text'],
         reply_markup=cart_info['markup']
     )
+    await c.answer()
 
 
 
