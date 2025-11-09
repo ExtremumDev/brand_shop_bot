@@ -55,7 +55,7 @@ class AsyncSheetCacheManager:
         """Загружает данные конкретного листа по ID"""
         ws = self._get_worksheet(sheet_id)
         data = ws.get_all_records()
-        self.cache[sheet_id] = {row["id"]: row for row in data}
+        self.cache[sheet_id] = {row["ID"]: row for row in data}
 
         cache_file = os.path.join(self.cache_dir, f"cache_{sheet_id}.json")
         with open(cache_file, "w", encoding="utf-8") as f:
