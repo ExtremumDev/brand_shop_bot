@@ -24,6 +24,9 @@ async def get_brand_list_markup():
             ]
         ]
     )
+    return InlineKeyboardMarkup(
+        inline_keyboard=inline_keyboard
+    )
 
 
 def get_market_markup(
