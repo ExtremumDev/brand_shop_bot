@@ -4,7 +4,6 @@ from markups.market import get_cart_markup
 
 from database import db
 from google_sheets.data_reader import cached_data_reader
-from config import sheet_categories
 
 
 async def make_cart_info(user_id):
@@ -25,7 +24,7 @@ async def make_cart_info(user_id):
         total = 0
         cart_for_markup = []
         for c in user_cart:
-            good_info = cached_data_reader.get_record(sheet_categories[c["brand"]], c["good_id"])
+            good_info = cached_data_reader.get_record(c["brand"], c["good_id"])
 
             message_text += f"""
 {i}. {good_info['Название']}

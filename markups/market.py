@@ -1,28 +1,29 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from config import sheet_categories
+from google_sheets.api import cache_manager
 
+def get_brand_list_markup():
+    brands = cache_manager.get_all_sheets()
 
-brand_list_markup = InlineKeyboardMarkup(
-    inline_keyboard=[
+    inline_keyboard = []
+    for b in brands:
+        inline_keyboard.append(
+            InlineKeyboardButton(
+                text=b['title'],
+                callback_data=f"brand_{b['id']}"
+            )
+        )
+
+    inline_keyboard.extend(
         [
-            InlineKeyboardButton(text=sheet_categories[i], callback_data=f"brand_{i}")
-            
+            [
+                InlineKeyboardButton(text="Задать вопрос", callback_data="question")
+            ],
+            [
+                InlineKeyboardButton(text="Как заказать?", callback_data="instruction")
+            ]
         ]
-        for i in range(len(sheet_categories))
-    ]
-)
-
-brand_list_markup.inline_keyboard.extend(
-    [
-        [
-            InlineKeyboardButton(text="Задать вопрос", callback_data="question")
-        ],
-        [
-            InlineKeyboardButton(text="Как заказать?", callback_data="instruction")
-        ]
-    ]
-)
+    )
 
 
 def get_market_markup(

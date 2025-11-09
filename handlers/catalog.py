@@ -1,7 +1,7 @@
 from aiogram import types, Dispatcher, F
 from aiogram.enums import ParseMode
 
-from markups.market import brand_list_markup, get_market_markup
+from markups.market import get_brand_list_markup, get_market_markup
 
 from google_sheets.data_reader import cached_data_reader
 
@@ -13,7 +13,7 @@ from config import sheet_categories
 
 
 def get_good_card_in_catalog(category: int, page: int = 0):
-    category_goods = cached_data_reader.get_all_records(sheet_categories[category])
+    category_goods = cached_data_reader.get_all_records(category)
 
     good = None
     if category_goods:
@@ -56,7 +56,7 @@ async def send_brand_list(c: types.CallbackQuery):
 
     await c.message.answer(
         "Выберите бренд",
-        reply_markup=brand_list_markup
+        reply_markup=get_brand_list_markup()
     )
 
 
@@ -102,45 +102,6 @@ async def send_first_brand_good(c: types.CallbackQuery):
         )
 
     await c.answer()
-
-
-async def catalog_left(c: types.CallbackQuery):
-    a, page, brand = c.data.split('_')
-    page = int(page)
-    brand = int(brand)
-
-    goods_data = get_good_card_in_catalog(brand, page - 1)
-
-    if goods_data:
-        await c.message.edit_media(
-            media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
-        )
-        await c.message.edit_caption(
-            caption=get_good_card_text(
-                name=goods_data["good"]["Название"],
-                descr=goods_data["good"]["Описание"],
-                usage=goods_data["good"]["Показания к применению"],
-                volume=goods_data["good"]["Показания к применению"],
-                price=goods_data["good"]["Цена"]
-            ),
-            parse_mode=ParseMode.HTML
-        )
-        await c.message.edit_reply_markup(
-            reply_markup=get_market_markup(
-                goods_data["is_to_right"],
-                goods_data["is_to_left"],
-                0,
-                goods_data["total_pages"],
-                goods_data["good"]["ID"],
-                brand,
-                count_in_cart if count_in_cart else 0
-
-            ),
-        )
-    else:
-        await c.message.edit_text(
-            "Не найдено товаров данного бренда"
-        )
 
 
 async def catalog_right(c: types.CallbackQuery):

@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT,
     `good_id` VARCHAR(10),
-    `brand` INT
+    `brand` BIGINT
 )            
 """
         )
