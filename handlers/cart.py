@@ -26,25 +26,26 @@ async def make_cart_info(user_id):
         for c in user_cart:
             good_info = cached_data_reader.get_record(c["brand"], c["good_id"])
 
-            message_text += f"""
-{i}. {good_info['Название']}
-Количество: {c['number']}
-Цента за шт: {good_info['Цена']}
-Сумма: {get_good_price(good_info['Цена'], c['number'])}
+            if good_info:
+                message_text += f"""
+    {i}. {good_info['Название']}
+    Количество: {c['number']}
+    Цента за шт: {good_info['Цена']}
+    Сумма: {get_good_price(good_info['Цена'], c['number'])}
 
-"""
-            try:
-                total += c['number'] * int(good_info['Цена'])
-            except ValueError:
-                pass
-            i += 1
-            cart_for_markup.append(
-                {
-                    "id": c['good_id'],
-                    "brand": c['brand'],
-                    "name": good_info["Название"]
-                }
-            )
+    """
+                try:
+                    total += c['number'] * int(good_info['Цена'])
+                except ValueError:
+                    pass
+                i += 1
+                cart_for_markup.append(
+                    {
+                        "id": c['good_id'],
+                        "brand": c['brand'],
+                        "name": good_info["Название"]
+                    }
+                )
 
         return {
             "text": message_text,
