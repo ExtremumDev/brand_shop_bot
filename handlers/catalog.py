@@ -205,7 +205,7 @@ async def add_to_cart(c: types.CallbackQuery):
         count_in_cart = await db.count_goods_in_cart(
             c.from_user.id,
             goods_data["good"]["ID"],
-            brand
+            int(brand)
         )
         await c.message.edit_media(
             media=types.InputMediaPhoto(media=get_google_drive_url(goods_data["good"]["Фото"])),
