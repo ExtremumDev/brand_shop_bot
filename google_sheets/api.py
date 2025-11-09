@@ -110,6 +110,5 @@ class AsyncSheetCacheManager:
 
 cache_manager = AsyncSheetCacheManager(
     settings.SPREADSHEET_NAME,
-    sheet_categories,
     "service_account.json"
 )
