@@ -33,7 +33,11 @@ class AsyncSheetCacheManager:
 
     async def refresh_sheets_info(self):
         worksheets = self.spreadsheet.worksheets()
-        self.sheet_titles = {ws.id: ws.title for ws in worksheets}
+        self.sheet_titles = {
+            ws.id: ws.title
+            for ws in worksheets
+            if ws.title != "Заказы"
+        }
         get_bot_logger().info(f"[Async] Найдено листов: {len(worksheets)}")
 
     async def get_sheet_title(self, sheet_id):
@@ -43,7 +47,6 @@ class AsyncSheetCacheManager:
         return [
             {"id": sid, "title": title}
             for sid, title in self.sheet_titles.items()
-            if title != "Заказы"
         ]
 
     def _get_worksheet(self, sheet_id):
