@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from google_sheets.api import cache_manager
 
 def get_brand_list_markup():
-    brands = cache_manager.get_all_sheets()
+    brands = await cache_manager.get_all_sheets()
 
     inline_keyboard = []
     for b in brands:
