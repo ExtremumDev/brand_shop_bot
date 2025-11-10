@@ -85,7 +85,7 @@ ID: {m.from_user.id}
     for c in cart:
         offer.append(
             {
-                "Дата и время": now.strftime("%d.%m.$y"),
+                "Дата и время": now.strftime("%d.%m.%Y %H:%M:%S"),
                 "Имя пользователя": s_data["name"],
                 "ID пользователя": m.from_user.id,
                 "Телефон": phone_number,
