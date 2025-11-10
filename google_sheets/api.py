@@ -111,6 +111,8 @@ class AsyncSheetCacheManager:
         if not data and ws.row_count == 0:
             ws.append_row(headers)
 
+        get_bot_logger().info(str(headers))
+
         new_rows = [[rec.get(h, "") for h in headers] for rec in records]
 
         ws.append_rows(
