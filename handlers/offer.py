@@ -85,7 +85,7 @@ ID: {m.from_user.id}
     for c in cart:
         offer.append(
             {
-                "Дата и время": now,
+                "Дата и время": now.strftime("%d.%m.$y"),
                 "Имя пользователя": s_data["name"],
                 "ID пользователя": m.from_user.id,
                 "Телефон": phone_number,
@@ -96,7 +96,7 @@ ID: {m.from_user.id}
 
         message_to_admin += f"{c['good_id']} - {c['number']} шт.\n"
 
-    cache_manager.add_offers(
+    await cache_manager.add_offers(
         offer
     )
 
