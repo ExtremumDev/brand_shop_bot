@@ -106,8 +106,17 @@ class AsyncSheetCacheManager:
         ws = self.spreadsheet.worksheet("Заказы")
         data = ws.get_all_records()
         headers = list(data[0].keys()) if data else list(records[0].keys())
+
+        # Если таблица пустая, записываем сначала заголовки
+        if not data and ws.row_count == 0:
+            ws.append_row(headers)
+
         new_rows = [[rec.get(h, "") for h in headers] for rec in records]
-        ws.append_rows(new_rows)
+
+        ws.append_rows(
+            new_rows,
+            value_input_option="USER_ENTERED"
+        )
 
 
 
