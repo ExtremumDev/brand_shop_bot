@@ -95,7 +95,7 @@ def get_market_markup(
 
     inline_keyboard.append(
         [
-            InlineKeyboardButton(text="В начало", callback_data=" ")
+            InlineKeyboardButton(text="В начало", callback_data="catalog")
         ]
     )
 
@@ -126,7 +126,7 @@ def get_cart_markup(cart: list):
         )
     
     inline_keyboard.append(
-        [InlineKeyboardButton(text="В начало", callback_data="start")]
+        [InlineKeyboardButton(text="В начало", callback_data="catalog")]
     )
 
     return InlineKeyboardMarkup(
